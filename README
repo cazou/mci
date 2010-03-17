@@ -1,1 +1,3 @@
 Getting started
+
+make won't directly work, you must modify mediacontroller.pro so the INCLUDEPATH has a path to the mediacontroller headers.
