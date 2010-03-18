@@ -57,14 +57,50 @@ void GraphicsPadContainer::paint(QPainter* painter, const QStyleOptionGraphicsIt
 
 	if (m_dir == Pad::In)
 	{
-		//painter->drawLine(QPointF(m_size.width(), pos().y() + 2),
-		//		  QPointF(m_size.width(), pos().y() + m_size.height() - 2));
 		painter->drawLine(QPointF(m_size.width(), 2),
 				  QPointF(m_size.width(), m_size.height() - 2));
+		int i = 0;
+		qreal posX = 0;
+		qreal posY;
+		int in = m_pads.count();
+		foreach(Pad *p, m_pads)
+		{
+			posY = (++i * m_size.height()/(2 * in)) - m_size.width()/2;
+			
+			if (i != 1)
+			{
+				painter->drawLine(QPointF(2, (qreal)(i-1)/(2*in) * m_size.height()),
+						  QPointF(m_size.width(), (qreal)(i-1)/(2*in) * m_size.height()));
+			}
+
+			i += 1;
+
+			QRectF padRect(posX, posY, m_size.width(), m_size.width());
+			painter->drawText(padRect, Qt::AlignCenter | Qt::TextWordWrap, QString("%1").arg(p->index()));
+		}
 	}
 	else
 	{
 		painter->drawLine(QPointF(0, 2),
 				  QPointF(0, m_size.height() - 2));
+		int i = 0;
+		qreal posX = 0;
+		qreal posY;
+		int out = m_pads.count();
+		foreach(Pad *p, m_pads)
+		{
+			posY = (++i * m_size.height()/(2 * out)) - m_size.width()/2;
+			
+			if (i != 1)
+			{
+				painter->drawLine(QPointF(2, (qreal)(i-1)/(2 * out) * m_size.height()),
+						  QPointF(m_size.width(), (qreal)(i-1)/(2*out) * m_size.height()));
+			}
+
+			i += 1;
+
+			QRectF padRect(posX, posY, m_size.width(), m_size.width());
+			painter->drawText(padRect, Qt::AlignCenter | Qt::TextWordWrap, QString("%1").arg(p->index()));
+		}
 	}
 }
