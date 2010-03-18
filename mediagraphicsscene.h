@@ -17,20 +17,17 @@ public:
 
 	void setMediaDevice(MediaDevice*);
 	
-	virtual void resizeEvent(QResizeEvent *event);
-
 	QSizeF sceneSize() const;
-
-signals:
-	void entityClicked(const Entity*);
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
 
+signals:
+	void entityClicked(const Entity*);
+
 private:
 	MediaDevice *m_mediaDevice;
 
-	void updatePositions();
 	QList<GraphicsEntity*> graphicsEntityList;
 	bool sortingDone;
 	GraphicsEntity *highlighted;

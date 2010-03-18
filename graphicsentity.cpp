@@ -37,7 +37,7 @@ void GraphicsEntity::setPos(int px, int py)
 {
 	m_pos = QPointF((px * m_size.width()) + (px * m_space), (py * m_size.height()) + (py * m_space));
 
-	if (!m_entity)
+	if (!m_entity || m_entity->type() == Entity::Node)
 		return;
 	
 	if (!m_inPadsContainer)
@@ -65,10 +65,13 @@ void GraphicsEntity::setEntity(Entity* e)
 {
 	m_entity = e;
 
-	delete m_inPadsContainer;
-	delete m_outPadsContainer;
-	m_inPadsContainer = new GraphicsPadContainer(m_entity->pads(), QPointF(0, 0), QSizeF(m_padSize, m_size.height()), Pad::In, this);
-	m_outPadsContainer = new GraphicsPadContainer(m_entity->pads(), QPointF(m_size.width() - m_padSize, 0), QSizeF(m_padSize, m_size.height()), Pad::Out, this);
+	if (m_entity->type() != Entity::Node)
+	{
+		delete m_inPadsContainer;
+		delete m_outPadsContainer;
+		m_inPadsContainer = new GraphicsPadContainer(m_entity->pads(), QPointF(0, 0), QSizeF(m_padSize, m_size.height()), Pad::In, this);
+		m_outPadsContainer = new GraphicsPadContainer(m_entity->pads(), QPointF(m_size.width() - m_padSize, 0), QSizeF(m_padSize, m_size.height()), Pad::Out, this);
+	}
 }
 
 QRectF GraphicsEntity::boundingRect() const
@@ -108,6 +111,7 @@ QPointF GraphicsEntity::padPosition(Pad* p)
 
 void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+	qDebug() << "Draw entity";
 	if (m_entity->type() == Entity::Node)
 	{
 		// Node
@@ -148,59 +152,11 @@ void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
 		}
 		painter->drawRoundedRect(QRectF(m_pos.x(), m_pos.y(), m_size.width(), m_size.height()), 10, 10);
 
-		// Draw Pads
 		painter->setPen(Qt::black);
-		
-		/*int out = outPads.count();
-		int in = inPads.count();
-		qreal posX, posY;
-		
-		if (in)
-		{
-			painter->drawLine(QPointF(m_pos.x() + m_padSize, m_pos.y() + 2), 
-					  QPointF(m_pos.x() + m_padSize, m_pos.y() + m_size.height() - 2));
-			int i = 0;
-			posX = m_pos.x();
-			foreach(Pad *p, inPads)
-			{
-				posY = m_pos.y() + (++i * m_size.height()/(2 * in)) - m_padSize/2;
-				
-				if (i != 1)
-				{
-					painter->drawLine(QPointF(posX + 2, m_pos.y() + (qreal)(i-1)/(2*in) * m_size.height()),
-							  QPointF(posX + m_padSize, m_pos.y() + (qreal)(i-1)/(2*in) * m_size.height()));
-				}
-
-				i += 1;
-
-				QRectF padRect(posX, posY, m_padSize, m_padSize);
-				painter->drawText(padRect, Qt::AlignCenter | Qt::TextWordWrap, QString("%1").arg(p->index()));
-			}
-		}
-		if (out)
-		{
-			painter->drawLine(QPointF(m_pos.x() + m_size.width() - m_padSize, m_pos.y() + 2),
-					  QPointF(m_pos.x() + m_size.width() - m_padSize, m_pos.y() + m_size.height() - 2));
-			int i = 0;
-			posX = m_pos.x() + m_size.width() - m_padSize;
-			foreach(Pad *p, outPads)
-			{
-				posY = m_pos.y() + (++i * m_size.height()/(2 * out)) - m_padSize/2; 
-				
-				if (i != 1)
-				{
-					painter->drawLine(QPointF(posX, m_pos.y() + (qreal)(i-1)/(2 * out) * m_size.height()),
-							  QPointF(posX + m_padSize - 2, m_pos.y() + (qreal)(i-1)/(2 * out) * m_size.height()));
-				}
-				
-				QRectF padRect(posX, posY, m_padSize, m_padSize);
-				painter->drawText(padRect, Qt::AlignCenter | Qt::TextWordWrap, QString("%1").arg(p->index()));
-			}
-		}*/
 
 		QSizeF textSize(m_size.width() - m_padSize * 2 - 4, m_size.height());
 		QPointF textPos(m_pos.x() + m_padSize + 2, m_pos.y());
-		
+
 		QFontMetrics fMetrics = painter->fontMetrics();
 		while(fMetrics.width(m_entity->name()) + 4 > m_size.width() - (2 * m_padSize))
 		{
@@ -209,7 +165,7 @@ void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
 			painter->setFont(font);
 			fMetrics = painter->fontMetrics();
 		}
-		
+
 		painter->drawText(QRectF(textPos, textSize), Qt::AlignCenter | Qt::TextWordWrap, m_entity->name());
 	}
 }

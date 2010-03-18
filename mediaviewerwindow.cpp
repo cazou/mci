@@ -37,6 +37,7 @@ MediaViewerWindow::MediaViewerWindow(QWidget *parent)
 	ui.mediaGraphicsView->setScene(m_scene);
 	connect(m_scene, SIGNAL(entityClicked(const Entity*)), this, SLOT(slotEntityClicked(const Entity*)));
 	ui.mediaGraphicsView->setRenderHint(QPainter::Antialiasing, true);
+	ui.mediaGraphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
 	showMaximized();
 
@@ -57,6 +58,9 @@ void MediaViewerWindow::resizeSceneInView()
 	QSizeF viewSize = ui.mediaGraphicsView->rect().size();
 	QSizeF sceneSize = ui.mediaGraphicsView->mapFromScene(m_scene->sceneRect()).boundingRect().size();
 	sceneSize *= 1.1;
+
+	qDebug() << "View size :" << viewSize;
+	qDebug() << "Scene size :" << sceneSize;
 	
 	qreal v = MIN(viewSize.height() / sceneSize.height(), viewSize.width() / sceneSize.width());
 	

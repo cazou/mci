@@ -71,6 +71,8 @@ QRectF GraphicsPadContainer::boundingRect() const
 
 void GraphicsPadContainer::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+	qDebug() << "Draw pads";
+	//FIXME:it's too much computing for paint()
 	if (m_pads.count() == 0)
 		return;
 

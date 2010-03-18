@@ -170,18 +170,7 @@ QSizeF MediaGraphicsScene::sceneSize() const
 	{
 		ret |= gi->boundingRect();
 	}
-
+	
 	return ret.size();
 }
 
-void MediaGraphicsScene::resizeEvent(QResizeEvent *event)
-{
-	// FIXME:Does not happen.
-	qDebug() << "resizeEvent";
-	updatePositions();
-}
-
-void MediaGraphicsScene::updatePositions()
-{
-
-}
