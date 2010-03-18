@@ -55,6 +55,8 @@ void MediaGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	}
 
 	ge->setHighlighted(true);
+	
+	//FIXME:update all items there (especially pad containers)
 	update(ge->boundingRect());
 	highlighted = ge;
 

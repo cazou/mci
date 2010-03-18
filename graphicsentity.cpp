@@ -48,7 +48,7 @@ void GraphicsEntity::setPos(int px, int py)
 	if (!m_outPadsContainer)
 		m_outPadsContainer = new GraphicsPadContainer(m_entity->pads(), QPointF(m_size.width() - m_padSize, 0), QSizeF(m_padSize, m_size.height()), Pad::Out, this);
 	else
-		m_outPadsContainer->setPos(m_pos);
+		m_outPadsContainer->setPos(m_pos + QPointF(m_size.width() - m_padSize, 0));
 }
 
 int GraphicsEntity::currentPosX()
@@ -64,18 +64,6 @@ int GraphicsEntity::currentPosY()
 void GraphicsEntity::setEntity(Entity* e)
 {
 	m_entity = e;
-
-	// Count in and out pads. It should be done by the entity.
-	/*if (outPads.count() == 0 && inPads.count() == 0)
-	{
-		foreach (Pad *p, m_entity->pads())
-		{
-			if (p->type() == Pad::Out)
-				outPads << p;
-			else
-				inPads << p;
-		}
-	}*/
 
 	delete m_inPadsContainer;
 	delete m_outPadsContainer;

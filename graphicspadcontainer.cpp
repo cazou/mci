@@ -57,12 +57,14 @@ void GraphicsPadContainer::paint(QPainter* painter, const QStyleOptionGraphicsIt
 
 	if (m_dir == Pad::In)
 	{
-		painter->drawLine(QPointF(m_size.width(), pos().y() + 2),
-				  QPointF(m_size.width(), pos().y() + m_size.height() - 2));
+		//painter->drawLine(QPointF(m_size.width(), pos().y() + 2),
+		//		  QPointF(m_size.width(), pos().y() + m_size.height() - 2));
+		painter->drawLine(QPointF(m_size.width(), 2),
+				  QPointF(m_size.width(), m_size.height() - 2));
 	}
 	else
 	{
-		painter->drawLine(QPointF(0, pos().y() + 2),
-				  QPointF(pos().x(), pos().y() + m_size.height() - 2));
+		painter->drawLine(QPointF(0, 2),
+				  QPointF(0, m_size.height() - 2));
 	}
 }
