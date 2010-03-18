@@ -100,34 +100,10 @@ QPointF GraphicsEntity::padPosition(Pad* p)
 		}
 	}
 
-	qreal yPos = 0;
 	if (p->type() == Pad::In)
-	{
-		yPos = m_pos.y() + m_size.height()/(inPads.count()*2);
-		foreach (Pad* pad, inPads)
-		{
-			if (pad->index() != p->index())
-			{
-				yPos += m_size.height()/(inPads.count());
-			}
-			else
-				break;
-		}
-		return QPointF(m_pos.x(), yPos);
-	}
+		return m_inPadsContainer->padPosition(p) + QPointF(m_pos.x(), 0);
 	else
-	{
-		yPos = m_pos.y() + m_size.height()/(outPads.count()*2);
-		foreach (Pad* pad, outPads)
-		{
-			if (pad->index() != p->index())
-				yPos += m_size.height()/(outPads.count());
-			else
-				break;
-		}
-		
-		return QPointF(m_pos.x() + m_size.width(), yPos);
-	}
+		return m_outPadsContainer->padPosition(p) + QPointF(m_pos.x() + m_size.width() - m_padSize, 0);
 }
 
 void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

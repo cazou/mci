@@ -147,7 +147,6 @@ void MediaGraphicsScene::setMediaDevice(MediaDevice* dev)
 		addItem(ge);
 	}
 
-	/*
 	// Drawing links
 	//FIXME:don't overlap on boxes !
 	foreach(GraphicsEntity *ge, graphicsEntityList)
@@ -161,7 +160,6 @@ void MediaGraphicsScene::setMediaDevice(MediaDevice* dev)
 			addItem(new GraphicsArrow(startPoint.x(), startPoint.y(), endPoint.x(), endPoint.y()));
 		}
 	}
-	*/
 }
 
 QSizeF MediaGraphicsScene::sceneSize() const

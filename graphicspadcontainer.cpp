@@ -28,6 +28,25 @@ void GraphicsPadContainer::setPads(const QList<Pad*>& pads)
 	}
 }
 
+QPointF GraphicsPadContainer::padPosition(const Pad* p)
+{
+	if (p->type() != m_dir)
+		return QPointF(-1, -1);
+
+	qreal yPos = m_size.height() / (m_pads.count() * 2);
+	foreach (Pad* pad, m_pads)
+	{
+		if (pad->index() != p->index())
+		{
+			yPos += m_size.height() / (m_pads.count());
+		}
+		else
+			break;
+	}
+
+	return QPointF(m_dir == Pad::In ? 0 : m_size.width(), yPos);
+}
+
 Pad* GraphicsPadContainer::padAt(qreal x, qreal y)
 {
 	return 0;

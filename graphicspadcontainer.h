@@ -36,6 +36,8 @@ public:
 	 */
 	Pad* padAtAbsolute(qreal x, qreal y);
 
+	QPointF padPosition(const Pad* p);
+	
 	void setDirection(const Pad::PadType);
 	Pad::PadType direction() const {return m_dir;}
 	
