@@ -101,9 +101,9 @@ QPointF GraphicsEntity::padPosition(Pad* p)
 	}
 
 	if (p->type() == Pad::In)
-		return m_inPadsContainer->padPosition(p) + QPointF(m_pos.x(), 0);
+		return m_inPadsContainer->padPosition(p) + QPointF(m_pos.x(), m_pos.y());
 	else
-		return m_outPadsContainer->padPosition(p) + QPointF(m_pos.x() + m_size.width() - m_padSize, 0);
+		return m_outPadsContainer->padPosition(p) + QPointF(m_pos.x() + m_size.width() - m_padSize, m_pos.y());
 }
 
 void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

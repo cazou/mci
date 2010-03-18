@@ -21,6 +21,13 @@ FakeMedia::FakeMedia()
 	padList2 << new Pad(0, Pad::In, 2) << new Pad(1, Pad::Out, 2);
 	e2->setPads(padList2);
 
+	
+	Entity *e4 = new FakeEntity(4);
+
+	QList<Pad*> padList4;
+	padList4 << new Pad(0, Pad::In, 4);
+	e4->setPads(padList4);
+
 
 	Entity *e3 = new FakeEntity(3);
 
@@ -30,7 +37,7 @@ FakeMedia::FakeMedia()
 	e3->setPads(padList3);
 
 	QList<Link*> linkList1;
-	linkList1 << new Link(padList1[0], padList2[0]) << new Link(padList1[0], padList3[0]);
+	linkList1 << new Link(padList1[0], padList2[0]) << new Link(padList1[0], padList3[0]) << new Link(padList1[0], padList4[0]);
 	e1->setLinks(linkList1);
 	
 	QList<Link*> linkList2;
@@ -38,7 +45,7 @@ FakeMedia::FakeMedia()
 	e2->setLinks(linkList2);
 	
 	QList<Entity*> en;
-	en << e1 << e2 << e3;
+	en << e1 << e2 << e3 << e4;
 	setEntities(en);
 }
 
