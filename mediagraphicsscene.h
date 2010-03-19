@@ -16,6 +16,7 @@
 
 class MediaDevice;
 class GraphicsEntity;
+class GraphicsArrow;
 class QResizeEvent;
 class Entity;
 
@@ -40,6 +41,7 @@ private:
 	MediaDevice *m_mediaDevice;
 
 	QList<GraphicsEntity*> graphicsEntityList;
+	QList<GraphicsArrow*> graphicsArrowList;
 	bool sortingDone;
 	GraphicsEntity *highlighted;
 };

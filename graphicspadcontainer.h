@@ -28,6 +28,8 @@ public:
 	 */
 	GraphicsPadContainer(const QList<Pad*>&, const QPointF& pos, const QSizeF& s, const Pad::PadType, QGraphicsItem *parent = 0);
 
+	~GraphicsPadContainer();
+
 	/**
 	 * Sets the pads for this container.
 	 * Only the pads that have the right direction will be drawn.

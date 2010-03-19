@@ -32,14 +32,16 @@ MediaGraphicsScene::MediaGraphicsScene(QObject *parent)
 
 MediaGraphicsScene::~MediaGraphicsScene()
 {
-	/*foreach(GraphicsEntity *ge, graphicsEntityList)
+	// Delete entities
+	foreach(GraphicsEntity *ge, graphicsEntityList)
 	{
 		delete ge;
-	}*/
+	}
 
-	foreach(QGraphicsItem *gi, items())
+	//Delete arrows
+	foreach(GraphicsArrow *ga, graphicsArrowList)
 	{
-		delete gi;
+		delete ga;
 	}
 }
 
@@ -187,6 +189,7 @@ void MediaGraphicsScene::setMediaDevice(MediaDevice* dev)
 			QPointF endPoint = graphicsEntityList[l->sink()->entity() - 1]->padPosition(l->sink());
 			
 			QGraphicsItem *ga = new GraphicsArrow(startPoint.x(), startPoint.y(), endPoint.x(), endPoint.y());
+			graphicsArrowList << dynamic_cast<GraphicsArrow*>(ga);
 			addItem(ga);
 		}
 	}

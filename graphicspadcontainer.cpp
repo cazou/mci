@@ -29,6 +29,11 @@ GraphicsPadContainer::GraphicsPadContainer(const QList<Pad*>& pads, const QPoint
 	setPads(pads);
 }
 
+GraphicsPadContainer::~GraphicsPadContainer()
+{
+
+}
+
 void GraphicsPadContainer::setPads(const QList<Pad*>& pads)
 {
 	// Take pads which are in the right direction.
