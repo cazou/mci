@@ -25,8 +25,8 @@ GraphicsPadContainer::GraphicsPadContainer(const QList<Pad*>& pads, const QPoint
 {
 	m_size = s;
 	m_dir = dir;
-	setPads(pads);
 	setPos(pos);
+	setPads(pads);
 }
 
 void GraphicsPadContainer::setPads(const QList<Pad*>& pads)
@@ -36,6 +36,13 @@ void GraphicsPadContainer::setPads(const QList<Pad*>& pads)
 	{
 		if (p->type() == m_dir)
 			m_pads << p;
+	}
+
+	if (m_pads.count() == 0)
+	{
+		prepareGeometryChange();
+		m_size = QSizeF(0, 0);
+		setPos(QPointF(0, 0));
 	}
 }
 
@@ -74,10 +81,7 @@ void GraphicsPadContainer::setDirection(const Pad::PadType)
 
 QRectF GraphicsPadContainer::boundingRect() const
 {
-	if (m_pads.count() != 0)
-		return QRectF(pos(), m_size);
-	else
-		return QRectF(pos(), QSizeF(0, 0));
+	return QRectF(mapFromItem(parentItem(), pos()), m_size);
 }
 
 void GraphicsPadContainer::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

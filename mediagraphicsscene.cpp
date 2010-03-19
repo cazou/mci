@@ -15,6 +15,7 @@
 
 #include "mediagraphicsscene.h"
 #include "graphicsarrow.h"
+#include "graphicspadcontainer.h"
 #include "mediadevice.h"
 #include "graphicsentity.h"
 #include "entity.h"
@@ -57,22 +58,39 @@ void MediaGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 		update(highlighted->boundingRect());
 	}
 	
-	GraphicsEntity *ge = dynamic_cast<GraphicsEntity*>(itemAt(mouseEvent->scenePos()));
-	if (!ge)
+	GraphicsEntity *ge;
+	GraphicsPadContainer *gpc;
+	if ((ge = dynamic_cast<GraphicsEntity*>(itemAt(mouseEvent->scenePos())))
+		|| (gpc = dynamic_cast<GraphicsPadContainer*>(itemAt(mouseEvent->scenePos()))))
 	{
-		highlighted = 0;
-		emit entityClicked(0);
+		if (!ge && gpc)
+			ge = dynamic_cast<GraphicsEntity*>(gpc->parentItem());
+		if (!ge)
+			return;
+
+		ge->setHighlighted(true);
+		
+		update(ge->boundingRect());
+		
+		if (highlighted == ge)
+			return;
+
+		highlighted = ge;
+
+		Entity *e = ge->entity();
+		emit entityClicked(e);
 		return;
 	}
 
-	ge->setHighlighted(true);
-	
-	//FIXME:update all items there (especially pad containers)
-	update(ge->boundingRect());
-	highlighted = ge;
+	GraphicsArrow *ga;
+	if ((ga = dynamic_cast<GraphicsArrow*>(itemAt(mouseEvent->scenePos()))))
+	{
 
-	Entity *e = ge->entity();
-	emit entityClicked(e);
+	}
+
+	highlighted = 0;
+	emit entityClicked(0);
+	return;
 }
 
 void MediaGraphicsScene::setMediaDevice(MediaDevice* dev)
@@ -168,11 +186,10 @@ void MediaGraphicsScene::setMediaDevice(MediaDevice* dev)
 			QPointF startPoint = ge->padPosition(l->source());
 			QPointF endPoint = graphicsEntityList[l->sink()->entity() - 1]->padPosition(l->sink());
 			
-			addItem(new GraphicsArrow(startPoint.x(), startPoint.y(), endPoint.x(), endPoint.y()));
+			QGraphicsItem *ga = new GraphicsArrow(startPoint.x(), startPoint.y(), endPoint.x(), endPoint.y());
+			addItem(ga);
 		}
 	}
-
-	addItem(new QGraphicsRectItem(sceneRect()));
 }
 
 QSizeF MediaGraphicsScene::sceneSize() const
