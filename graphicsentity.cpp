@@ -1,3 +1,14 @@
+/*
+ *      Media Controller Inspector
+ *
+ *      Copyright (C) 2010
+ *          Detlev Casanova (detlev.casanova@gmail.com)
+ *
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License version 3 as
+ *      published by the Free Software Foundation.
+ *
+ */
 #include "graphicsentity.h"
 #include "graphicspadcontainer.h"
 #include "entity.h"
@@ -21,7 +32,8 @@ GraphicsEntity::GraphicsEntity(QGraphicsItem* parent)
 
 GraphicsEntity::~GraphicsEntity()
 {
-
+	delete m_inPadsContainer;
+	delete m_outPadsContainer;
 }
 
 void GraphicsEntity::setSize(qreal size)
@@ -111,7 +123,6 @@ QPointF GraphicsEntity::padPosition(Pad* p)
 
 void GraphicsEntity::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-	qDebug() << "Draw entity";
 	if (m_entity->type() == Entity::Node)
 	{
 		// Node

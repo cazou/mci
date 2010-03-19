@@ -1,3 +1,14 @@
+/*
+ *      Media Controller Inspector
+ *
+ *      Copyright (C) 2010
+ *          Detlev Casanova (detlev.casanova@gmail.com)
+ *
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License version 3 as
+ *      published by the Free Software Foundation.
+ *
+ */
 #include <QPainter>
 #include <QDebug>
 
@@ -71,7 +82,6 @@ QRectF GraphicsPadContainer::boundingRect() const
 
 void GraphicsPadContainer::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-	qDebug() << "Draw pads";
 	//FIXME:it's too much computing for paint()
 	if (m_pads.count() == 0)
 		return;

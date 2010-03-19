@@ -1,3 +1,14 @@
+/*
+ *      Media Controller Inspector
+ *
+ *      Copyright (C) 2010
+ *          Detlev Casanova (detlev.casanova@gmail.com)
+ *
+ *      This program is free software; you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License version 3 as
+ *      published by the Free Software Foundation.
+ *
+ */
 #include "mediaviewerwindow.h"
 #include "mediadevice.h"
 #include "mediagraphicsscene.h"
@@ -59,11 +70,8 @@ void MediaViewerWindow::resizeSceneInView()
 	QSizeF sceneSize = ui.mediaGraphicsView->mapFromScene(m_scene->sceneRect()).boundingRect().size();
 	sceneSize *= 1.1;
 
-	qDebug() << "View size :" << viewSize;
-	qDebug() << "Scene size :" << sceneSize;
-	
 	qreal v = MIN(viewSize.height() / sceneSize.height(), viewSize.width() / sceneSize.width());
-	
+
 	ui.mediaGraphicsView->scale(v, v);
 }
 
