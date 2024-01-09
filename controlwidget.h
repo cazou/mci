@@ -1,8 +1,8 @@
 /*
  *      Media Controller Inspector
  *
- *      Copyright (C) 2010
- *          Detlev Casanova (detlev.casanova@gmail.com)
+ *      Copyright 2010 - 2024
+ *          Detlev Casanova <dc@detlev.ca>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License version 3 as
