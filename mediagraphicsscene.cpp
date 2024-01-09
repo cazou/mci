@@ -62,8 +62,8 @@ void MediaGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	
 	GraphicsEntity *ge;
 	GraphicsPadContainer *gpc;
-	if ((ge = dynamic_cast<GraphicsEntity*>(itemAt(mouseEvent->scenePos())))
-		|| (gpc = dynamic_cast<GraphicsPadContainer*>(itemAt(mouseEvent->scenePos()))))
+	if ((ge = dynamic_cast<GraphicsEntity*>(itemAt(mouseEvent->scenePos(), QTransform())))
+		|| (gpc = dynamic_cast<GraphicsPadContainer*>(itemAt(mouseEvent->scenePos(), QTransform()))))
 	{
 		if (!ge && gpc)
 			ge = dynamic_cast<GraphicsEntity*>(gpc->parentItem());
@@ -85,7 +85,7 @@ void MediaGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	}
 
 	GraphicsArrow *ga;
-	if ((ga = dynamic_cast<GraphicsArrow*>(itemAt(mouseEvent->scenePos()))))
+	if ((ga = dynamic_cast<GraphicsArrow*>(itemAt(mouseEvent->scenePos(), QTransform()))))
 	{
 
 	}

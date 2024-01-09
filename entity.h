@@ -12,7 +12,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#define __user
 #include <linux/types.h>
 #include <linux/media.h>
 
@@ -43,13 +42,13 @@ public:
 	} EntitySubtype;
 
 	Entity(int);
-	Entity(media_user_entity&);
+	Entity(media_entity_desc&);
 	~Entity();
 
 	void setPads(QList<Pad*>);
-	void setPads(media_user_pad*);
+	void setPads(media_pad_desc*);
 	void setLinks(QList<Link*>);
-	void setLinks(media_user_link*);
+	void setLinks(media_link_desc*);
 
 	unsigned int id() const {return m_id;}
 	unsigned int padCount() const {return m_padCount;}

@@ -10,8 +10,7 @@
  *
  */
 // Kernel includes
-#define __user
-#include <linux/videodev.h>
+#include <linux/videodev2.h>
 
 // System includes
 #include <sys/ioctl.h>
@@ -20,6 +19,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/sysmacros.h>
 
 #include <QDebug>
 

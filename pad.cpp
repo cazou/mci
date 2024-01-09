@@ -18,10 +18,11 @@ Pad::Pad(unsigned int index, PadType type, unsigned int entity)
 	m_entity = entity;
 }
 
-Pad::Pad(const media_user_pad& pad)
+Pad::Pad(const media_pad_desc& pad)
 {
 	m_index = pad.index;
-	m_type = pad.type == MEDIA_PAD_TYPE_INPUT ? In : Out;
+	// FIXME: These are flags now, could be a sink AND source
+	m_type = pad.flags & MEDIA_PAD_FL_SINK ? In : Out;
 	m_entity = pad.entity;
 }
 

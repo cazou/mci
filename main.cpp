@@ -9,7 +9,7 @@
  *      published by the Free Software Foundation.
  *
  */
-#include <QApplication>
+#include <QCoreApplication>
 
 #include "mediaviewerwindow.h"
 

@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <unistd.h>
 
 #include "mediadevicepool.h"
 #include "mediadevice.h"
@@ -58,7 +59,7 @@ bool fileExists(const QString& fileName)
 	if (fd == -1 && errno == ENODEV)
 		return false;
 	
-	close(fd);
+	::close(fd);
 	return true;
 }
 

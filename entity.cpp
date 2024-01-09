@@ -28,15 +28,17 @@ Entity::Entity(int id)
 	m_subDev = 0;
 }
 
-Entity::Entity(media_user_entity& e)
+Entity::Entity(media_entity_desc& e)
 {
 	m_id = e.id;
-	m_type = e.type == MEDIA_ENTITY_TYPE_NODE ? Node : Subdev;
+	//m_type = e.type == MEDIA_ENTITY_TYPE_NODE ? Node : Subdev;
 	m_padCount = e.pads;
 	m_linkCount = e.links;
 	m_name = QString(e.name);
+
+	m_subtype = Unknown;
 	
-	if (m_type == Node)
+/*	if (m_type == Node)
 	{
 		switch (e.subtype)
 		{
@@ -73,7 +75,7 @@ Entity::Entity(media_user_entity& e)
 			m_subtype = Unknown;
 		}
 	}
-	
+*/
 	if (m_subtype == V4l || m_type == Subdev)
 		m_subDev = SubDevicePool::self()->subDevice((unsigned int)e.v4l.major, (unsigned int)e.v4l.minor);
 	/*else if (m_subtype == FB)
@@ -102,7 +104,7 @@ void Entity::setLinks(QList<Link*> links)
 	m_linkCount = links.count();
 }
 
-void Entity::setPads(media_user_pad *pads)
+void Entity::setPads(media_pad_desc *pads)
 {
 	for (unsigned int i = 0; i < m_padCount; i++)
 	{
@@ -110,7 +112,7 @@ void Entity::setPads(media_user_pad *pads)
 	}
 }
 
-void Entity::setLinks(media_user_link *links)
+void Entity::setLinks(media_link_desc *links)
 {
 	for (unsigned int i = 0; i < m_linkCount; i++)
 	{

@@ -10,7 +10,6 @@
  *
  */
 // Kernel includes
-#define __user
 #include <linux/types.h>
 #include <linux/ioctl.h>
 #include <linux/media.h>
@@ -21,6 +20,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <unistd.h>
 
 // Qt includes
 #include <QDebug>
@@ -66,7 +66,7 @@ int MediaDevice::open()
 	do
 	{
 		int ret;
-		media_user_entity entity;
+		media_entity_desc entity;
 		memset(&entity, 0, sizeof entity);
 		entity.id = i++;
 		ret = ioctl(dev, MEDIA_IOC_ENUM_ENTITIES, &entity);
@@ -88,11 +88,11 @@ int MediaDevice::open()
 	{
 		// Look for links (links are out links only)
 		int ret;
-		media_user_links links;
+		media_links_enum links;
 		memset(&links, 0, sizeof links);
 		links.entity = e->id();
-		links.pads = new media_user_pad[e->padCount()];
-		links.links = new media_user_link[e->linkCount()];
+		links.pads = new media_pad_desc[e->padCount()];
+		links.links = new media_link_desc[e->linkCount()];
 		ret = ioctl(dev, MEDIA_IOC_ENUM_LINKS, &links);
 		if (ret < 0)
 		{

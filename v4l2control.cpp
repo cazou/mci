@@ -20,8 +20,7 @@
 #include <QComboBox>
 
 // Kernel includes
-#define __user
-#include <linux/videodev.h>
+#include <linux/videodev2.h>
 
 V4l2Control::V4l2Control(const v4l2_queryctrl& ctrl, int value, SubDevice *parent)
 {

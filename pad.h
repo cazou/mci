@@ -12,7 +12,6 @@
 #ifndef PAD_H
 #define PAD_H
 
-#define __user
 #include <linux/types.h>
 #include <linux/media.h>
 
@@ -25,7 +24,7 @@ public:
 	} PadType;
 
 	Pad(unsigned int index, PadType type, unsigned int entity);
-	Pad(const media_user_pad&);
+	Pad(const media_pad_desc&);
 	~Pad();
 	unsigned int entity() const {return m_entity;}
 	unsigned int index() const {return m_index;}
